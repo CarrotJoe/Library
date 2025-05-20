@@ -13,4 +13,29 @@ block content
           td wise man's fear
           td Fantasy 
           td Joe
-  button add book 
+  
+  //- Trigger button
+button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#addBookModal') Add Book
+
+
+//- Modal (Bootstrap style)
+div.modal.fade#addBookModal(tabindex='-1', aria-labelledby='addBookModalLabel', aria-hidden='true')
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        h5.modal-title#addBookModalLabel Add a Book
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      div.modal-body
+        form#addBookForm
+          .mb-3
+            label.form-label(for='name') Book Name
+            input.form-control(type='text', name='name', id='name', required)
+          .mb-3
+            label.form-label(for='genre') Genre
+            input.form-control(type='text', name='genre', id='genre', required)
+          .mb-3
+            label.form-label(for='owner') Owner
+            input.form-control(type='text', name='owner', id='owner', required)
+      div.modal-footer
+        button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Close
+        button.btn.btn-primary(type='submit', form='addBookForm') Add Book
