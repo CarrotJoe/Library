@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-  name: String,
-  genre: String,
-  owner: String
-});
+    title: String,
+    author: String,
+    genre: [String], // Supports multiple genres
+    owner: String,
+    isbn: String
+  });
 
 const Book = mongoose.model('Book', bookSchema);
 

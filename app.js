@@ -9,14 +9,17 @@ var app = express();
 connectDB();
 
 
-
-
-app.post('/books', addBook);
 app.use(express.json());
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
+const booksRouter = require('./routes/books'); 
+app.use('/books', booksRouter); 
+app.post('/books', addBook);
+const fetchBooks = require('./controllers/fetchBooks');
+app.get('/books/fetch', fetchBooks);
 
 
 // view engine setup
