@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     books.forEach(book => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${book.name}</td>
-        <td>${book.author}</td>
+        <td class="book-title">${book.name}</td>
+        <td class="book-author">${book.author}</td>
         <td>${book.genres.join(', ')}</td>
-        <td>${book.isbn}</td>
+        <td class="book-isbn">${book.isbn}</td>
         <td>${book.owner}</td>
 
         <td>
@@ -23,34 +23,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           </button>
         </td>
       `;
-
       tbody.appendChild(row);
     });
 
+    // 🔥 Fire custom event AFTER DOM is updated
+    document.dispatchEvent(new Event('booksLoaded'));
 
   } catch (err) {
     console.error('Error loading books:', err);
   }
 });
-
-async function toggleCheckout(button) {
-  const id = button.getAttribute('data-id');
-
-  try {
-    const res = await fetch(`/books/${id}/toggle-checkout`, {
-      method: 'PATCH'
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      button.textContent = data.checkedOut ? 'Checked Out' : 'Available';
-      button.classList.toggle('btn-danger', data.checkedOut);
-      button.classList.toggle('btn-success', !data.checkedOut);
-    } else {
-      alert(data.error || 'Failed to update status');
-    }
-  } catch (err) {
-    console.error('Error toggling checkout:', err);
-    alert('Something went wrong.');
-  }
-}

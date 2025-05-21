@@ -2,21 +2,19 @@ extends layout
 
 block content
 
-  h1= title
-  p Welcome to #{title}
+  h1= title 
 
-  div(class="container")
-    <!-- Light Theme Search -->
-    div(class="search-wrapper")
-        div(class="search-box")
-            i (class="fas fa-search search-icon")
-            input(type="text" class="form-control search-input" placeholder="Search anything...")
-            button(class="btn btn-primary search-button")
-                    Search
+  div.container
+    div.input-group.mb-3
+      span.input-group-text
+        i.fas.fa-search
+      input.form-control.search-input(type="text", placeholder="Search anything...")
+      button.btn.btn-primary(type="button") Search
 
 
-    div
-      table(class="table table-hover table-dark")
+  div
+    table(class="table table-hover table-dark")
+      thead
         tr
           th Name
           th Author
@@ -24,8 +22,8 @@ block content
           th ISBN
           th Owner
           th Availability
-        tbody#bookTableBody 
-  
+      tbody#bookTableBody 
+    
       //- Trigger button
     button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#addBookModal') Add Book
 
@@ -67,3 +65,5 @@ block content
 
     script(src='/javascripts/addBook.js')
     script(src='/javascripts/fetchBookRequest.js')
+    script(src='/javascripts/searchBooks.js')
+
