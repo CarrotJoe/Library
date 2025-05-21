@@ -4,12 +4,26 @@ block content
 
   h1= title
   p Welcome to #{title}
+
+  div(class="container")
+    <!-- Light Theme Search -->
+    div(class="search-wrapper")
+        div(class="search-box")
+            i (class="fas fa-search search-icon")
+            input(type="text" class="form-control search-input" placeholder="Search anything...")
+            button(class="btn btn-primary search-button")
+                    Search
+
+
     div
       table(class="table table-hover table-dark")
         tr
           th Name
+          th Author
           th Genre
+          th ISBN
           th Owner
+          th Availability
         tbody#bookTableBody 
   
       //- Trigger button
@@ -26,11 +40,24 @@ block content
           div.modal-body
             form#addBookForm
               .mb-3
-                label.form-label(for='name') Book Name
-                input.form-control(type='text', name='name', id='name', required)
+                label.form-label(for='isbn') ISBN
+                input.form-control(type='text', name='isbn', id='isbn', required)
+
+              //- Required genre
               .mb-3
-                label.form-label(for='genre') Genre
-                input.form-control(type='text', name='genre', id='genre', required)
+                label.form-label(for='genre1') Genre (Required)
+                select.form-select(name='genre1', id='genre1', required)
+                  option(value='') Select a genre
+                  each genre in genres
+                    option(value=genre)= genre
+
+              //- Optional genre
+              .mb-3
+                label.form-label(for='genre2') Genre (Optional)
+                select.form-select(name='genre2', id='genre2')
+                  option(value='') None
+                  each genre in genres
+                    option(value=genre)= genre
               .mb-3
                 label.form-label(for='owner') Owner
                 input.form-control(type='text', name='owner', id='owner', required)

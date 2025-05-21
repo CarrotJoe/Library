@@ -4,22 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const connectDB = require('./config/db');
-const { addBook } = require('./controllers/addBook');
+
 var app = express();
+
 connectDB();
 
 
 app.use(express.json());
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const booksRouter = require('./routes/books'); 
-app.use('/books', booksRouter); 
-app.post('/books', addBook);
-const fetchBooks = require('./controllers/fetchBooks');
-app.get('/books/fetch', fetchBooks);
+
+
+app.use('/books', booksRouter);
 
 
 // view engine setup
@@ -32,8 +30,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/books', booksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
